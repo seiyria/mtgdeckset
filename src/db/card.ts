@@ -7,6 +7,7 @@ export interface Card {
   name: string;
   set: string;
   rarity: string;
+  type: string;
 }
 
 export interface DeckCard extends Card {
@@ -18,5 +19,5 @@ export const CardDB = new Dexie('CardDB') as Dexie & {
 };
 
 CardDB.version(1).stores({
-  cards: 'id, colors, name, set, rarity'
+  cards: 'id, colors, name, set, rarity, type'
 });

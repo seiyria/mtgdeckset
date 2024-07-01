@@ -6,7 +6,7 @@ import { RouterOutlet } from '@angular/router';
 import { groupBy, sortBy, uniqBy } from 'lodash';
 import { Card, CardDB, DeckCard } from '../db';
 
-type Sort = 'Set' | 'Color' | 'Rarity';
+type Sort = 'Set' | 'Color' | 'Rarity' | 'Type';
 
 @Component({
   selector: 'app-root',
@@ -16,7 +16,7 @@ type Sort = 'Set' | 'Color' | 'Rarity';
   styleUrl: './app.component.scss'
 })
 export class AppComponent implements OnInit {
-  data = signal<any[]>([]);
+  data = signal<Card[]>([]);
   loadingPage = signal<boolean>(false);
   loadingData = signal<boolean>(false);
   updatedAt = signal<string>('');
@@ -49,6 +49,7 @@ export class AppComponent implements OnInit {
     const cards = this.allCards();
 
     switch(sort) {
+      case 'Type':    return groupBy(uniqBy(cards, c => c.name), c => c.type);
       case 'Color':   return groupBy(uniqBy(cards, c => c.name), c => c.colors.join('') || 'Colorless');
       case 'Rarity':  return groupBy(uniqBy(cards, c => c.name), c => c.rarity);
       case 'Set':     return groupBy(cards, (c: DeckCard) => c.set);
@@ -111,7 +112,6 @@ export class AppComponent implements OnInit {
     const cardRes = await fetch(cardRef.download_uri);
     const cardData = await cardRes.json();
 
-    this.data.set(cardData);
     this.updatedAt.set(cardRef.updated_at);
     this.totalCards.set(cardData.length);
 
@@ -123,8 +123,11 @@ export class AppComponent implements OnInit {
       colors: c.colors,
       name: c.name,
       set: c.set_name,
-      rarity: c.rarity
+      rarity: c.rarity,
+      type: c.type_line.split('—')[0].trim()
     }));
+
+    this.data.set(cardData);
 
     CardDB.cards.bulkPut(cardsToStore);
 
@@ -163,7 +166,8 @@ export class AppComponent implements OnInit {
         id: cardName,
         name: cardName,
         rarity: 'land',
-        set: 'Lands'
+        set: 'Lands',
+        type: 'Land'
       }]
     }
 
@@ -178,7 +182,7 @@ export class AppComponent implements OnInit {
 
   findSetForCard(cardName: string) {
     const cards = this.data();
-    return cards.find((card: any) => card.name === cardName)?.set_name ?? 'Unknown';
+    return cards.find((card: any) => card.name === cardName)?.set ?? 'Unknown';
   }
 
   toggleDeckBox() {

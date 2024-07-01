@@ -49,7 +49,7 @@
         Card List
 
         <div class="btn-group ms-3">
-          @for(sortType of ['Set', 'Color', 'Rarity']; track $index) {
+          @for(sortType of ['Set', 'Color', 'Rarity', 'Type']; track $index) {
             <button type="button" class="btn btn-sm"
                     (click)="setSort(sortType)"
                     [class.btn-secondary]="sort() !== sortType"
