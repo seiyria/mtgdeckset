@@ -16,7 +16,7 @@ type Sort = 'Set' | 'Color' | 'Rarity';
   styleUrl: './app.component.scss'
 })
 export class AppComponent implements OnInit {
-  data = signal<Card[]>([]);
+  data = signal<any[]>([]);
   loadingPage = signal<boolean>(false);
   loadingData = signal<boolean>(false);
   updatedAt = signal<string>('');
@@ -178,7 +178,7 @@ export class AppComponent implements OnInit {
 
   findSetForCard(cardName: string) {
     const cards = this.data();
-    return cards.find((card: any) => card.name === cardName)?.set ?? 'Unknown';
+    return cards.find((card: any) => card.name === cardName)?.set_name ?? 'Unknown';
   }
 
   toggleDeckBox() {
