@@ -1,6 +1,6 @@
 import { DatePipe, DecimalPipe, JsonPipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Component, computed, effect, model, OnInit, signal } from '@angular/core';
+import { Component, computed, effect, model, OnInit, signal, WritableSignal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
 import { groupBy, sortBy, uniqBy } from 'lodash';
@@ -15,14 +15,20 @@ import { Card, CardDB, DeckCard } from '../db';
 })
 export class AppComponent implements OnInit {
   data = signal<Card[]>([]);
-  loading = signal<boolean>(false);
+  loadingPage = signal<boolean>(false);
+  loadingData = signal<boolean>(false);
   updatedAt = signal<string>('');
   totalCards = signal<number>(0);
+
   deckToggle = signal<boolean>(true);
+  hideComplete = signal<boolean>(true);
+
+  totalUniqueCards = signal<number>(0);
+  incompleteCards = signal<number>(0);
 
   deckString = model<string>('');
 
-  checkList = signal<Record<string, boolean[]>>({});
+  checkList: Record<string, WritableSignal<boolean>[]> = {};
 
   allCards = computed(() => {
     if(!this.data()) return [];
@@ -52,39 +58,38 @@ export class AppComponent implements OnInit {
     return this.deckToggle();
   });
 
-  totalUniqueCards = computed(() => {
-    const checklist = this.checkList();
-
-    return Object.keys(checklist).length;
-  });
-
-  incompleteCards = computed(() => {
-    const checklist = this.checkList();
-
-    return Object.keys(checklist).map(c => checklist[c].every(Boolean)).length;
-  });
-
   constructor() {
     effect(() =>  {
       const cards = this.allCards();
+
       cards.forEach(c => {
-        this.setCheckboxesForCardName(c.name, c.amount);
+        this.checkList[c.name] = Array(c.amount).fill(undefined).map(() => signal(false));
       });
-    })
+
+      const totals = Object.keys(this.checkList).map(c => this.checkList[c]).flat();
+      this.totalUniqueCards.set(totals.length);
+      this.incompleteCards.set(totals.length);
+
+    }, { allowSignalWrites: true });
   }
 
   async ngOnInit() {
+    this.loadingPage.set(true);
+
+    const cards = await CardDB.cards.toArray();
+    this.data.set(cards ?? []);
+
     this.updatedAt.set(localStorage.getItem('updated-at') ?? '');
     this.totalCards.set(+(localStorage.getItem('total-cards') ?? '0'));
     this.deckString.set(localStorage.getItem('previous-deck') ?? '');
     this.deckToggle.set(!!(+(localStorage.getItem('show-deck') ?? '1')));
+    this.hideComplete.set(!!(+(localStorage.getItem('hide-complete') ?? '1')));
 
-    const cards = await CardDB.cards.toArray();
-    this.data.set(cards ?? []);
+    this.loadingPage.set(false);
   }
 
   async fetchData() {
-    this.loading.set(true);
+    this.loadingData.set(true);
     const bulkRes = await fetch('https://api.scryfall.com/bulk-data');
     const bulkData = await bulkRes.json();
 
@@ -111,7 +116,7 @@ export class AppComponent implements OnInit {
 
     CardDB.cards.bulkPut(cardsToStore);
 
-    this.loading.set(false);
+    this.loadingData.set(false);
   }
 
   parseCardLine(line: string): DeckCard[] | undefined {
@@ -169,6 +174,11 @@ export class AppComponent implements OnInit {
     localStorage.setItem('show-deck', (+this.deckToggle()).toString());
   }
 
+  toggleHideComplete() {
+    this.hideComplete.set(!this.hideComplete());
+    localStorage.setItem('hide-complete', (+this.hideComplete()).toString());
+  }
+
   saveDeck(deck: string) {
     localStorage.setItem('previous-deck', deck);
   }
@@ -177,17 +187,17 @@ export class AppComponent implements OnInit {
     return ['Plains', 'Mountain', 'Island', 'Swamp', 'Forest', 'Wastes'].includes(cardName);
   }
 
-  setCheckboxesForCardName(cardName: string, amount = 1) {
-    const checklist = this.checkList();
-    checklist[cardName] = Array(amount).fill(false);
-
-    this.checkList.set(checklist);
+  isSetComplete(set: string) {
+    return this.cardsAndSets()[set].map(c => this.checkList[c.name]).flat().every(c => c());
   }
 
   toggleCollectionCard(cardName: string, index: number) {
-    const checklist = this.checkList();
-    checklist[cardName][index] = !checklist[cardName][index];
+    this.checkList[cardName][index].set(!this.checkList[cardName][index]());
+    this.recalculateIncomplete();
+  }
 
-    this.checkList.set(checklist);
+  recalculateIncomplete() {
+    const incomplete = Object.keys(this.checkList).map(k => this.checkList[k]).flat().filter(c => !c()).length;
+    this.incompleteCards.set(incomplete);
   }
 }
