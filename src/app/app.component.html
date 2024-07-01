@@ -45,7 +45,20 @@
     }
 
     <div class="col">
-      <h2>Set Results</h2>
+      <h2 class="d-flex align-items-center">
+        Card List
+
+        <div class="btn-group ms-3">
+          @for(sortType of ['Set', 'Color', 'Rarity']; track $index) {
+            <button type="button" class="btn btn-sm"
+                    (click)="setSort(sortType)"
+                    [class.btn-secondary]="sort() !== sortType"
+                    [class.btn-info]="sort() === sortType">
+                  {{ sortType }}
+            </button>
+          }
+        </div>
+      </h2>
 
       <div class="row my-3">
         <div class="col">

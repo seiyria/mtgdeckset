@@ -6,6 +6,8 @@ import { RouterOutlet } from '@angular/router';
 import { groupBy, sortBy, uniqBy } from 'lodash';
 import { Card, CardDB, DeckCard } from '../db';
 
+type Sort = 'Set' | 'Color' | 'Rarity';
+
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -28,6 +30,8 @@ export class AppComponent implements OnInit {
 
   deckString = model<string>('');
 
+  sort = model<Sort>('Set');
+
   checkList: Record<string, WritableSignal<boolean>[]> = {};
 
   allCards = computed(() => {
@@ -40,9 +44,16 @@ export class AppComponent implements OnInit {
   })
 
   cardsAndSets = computed(() => {
+    const sort = this.sort();
+
     const cards = this.allCards();
 
-    return groupBy(cards, (c: DeckCard) => c.set);
+    switch(sort) {
+      case 'Color':   return groupBy(uniqBy(cards, c => c.name), c => c.colors.join('') || 'Colorless');
+      case 'Rarity':  return groupBy(uniqBy(cards, c => c.name), c => c.rarity);
+      case 'Set':     return groupBy(cards, (c: DeckCard) => c.set);
+    }
+
   });
 
   orderedSets = computed(() => {
@@ -84,6 +95,7 @@ export class AppComponent implements OnInit {
     this.deckString.set(localStorage.getItem('previous-deck') ?? '');
     this.deckToggle.set(!!(+(localStorage.getItem('show-deck') ?? '1')));
     this.hideComplete.set(!!(+(localStorage.getItem('hide-complete') ?? '1')));
+    this.sort.set(localStorage.getItem('sort') as Sort ?? 'Set');
 
     this.loadingPage.set(false);
   }
@@ -177,6 +189,11 @@ export class AppComponent implements OnInit {
   toggleHideComplete() {
     this.hideComplete.set(!this.hideComplete());
     localStorage.setItem('hide-complete', (+this.hideComplete()).toString());
+  }
+
+  setSort(sort: string) {
+    this.sort.set(sort as Sort  );
+    localStorage.setItem('sort', sort);
   }
 
   saveDeck(deck: string) {
