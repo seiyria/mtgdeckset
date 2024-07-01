@@ -1,0 +1,483 @@
+Deck
+1 Aethersnatch
+1 Arcane Signet
+1 Archaeomancer
+1 Astral Cornucopia
+1 Blatant Thievery
+1 Blue Sun's Twilight
+1 Blue Sun's Zenith
+1 Brainstorm
+1 Capsize
+1 Charmbreaker Devils
+1 Chromatic Lantern
+1 Comet Storm
+1 Command Tower
+1 Counterflux
+1 Curse of the Swine
+1 Cyclonic Rift
+1 Dig Through Time
+1 Dominate
+1 Evolving Wilds
+1 Experimental Augury
+1 Expropriate
+1 Fact or Fiction
+1 Faithless Looting
+1 Fall of the Titans
+1 Firemind's Foresight
+1 Frantic Search
+1 Fuel for the Cause
+1 Gilded Lotus
+1 Goblin Electromancer
+1 Guttersnipe
+1 Halimar Depths
+1 Increasing Vengeance
+1 Inexorable Tide
+1 Insurrection
+11 Island
+1 Izzet Boilerworks
+1 Izzet Guildgate
+1 Izzet Signet
+1 Jeska's Will
+1 Mindswipe
+1 Mizzium Mortars
+1 Mizzix's Mastery
+1 Molten Tributary
+8 Mountain
+1 Mystic Confluence
+1 Mystic Retrieval
+1 Ponder
+1 Power Sink
+1 Preordain
+1 Prophetic Bolt
+1 Reiterate
+1 Reliquary Tower
+1 Repeal
+1 Restless Spire
+1 Rite of Replication
+1 Scalding Tarn
+1 Scour from Existence
+1 Shivan Reef
+1 Sol Ring
+1 Spelltwine
+1 Sphinx-Bone Wand
+1 Steam Augury
+1 Steam Vents
+1 Stolen Goods
+1 Stormcarved Coast
+1 Stroke of Genius
+1 Sulfur Falls
+1 Supplant Form
+1 Syncopate
+1 Talrand, Sky Summoner
+1 Temple of Epiphany
+1 Terramorphic Expanse
+1 Tezzeret's Gambit
+1 Thought Vessel
+1 Training Center
+1 Treasure Cruise
+1 Turnabout
+1 Unwind
+1 Vandalblast
+1 Vivisurgeon's Insight
+1 Volcanic Geyser
+1 Wild Ricochet
+
+===
+
+1x Arcane Signet (otc) 252 [Artifact]
+1x Arcum Dagsson (2xm) 41 [Creature]
+1x Arcum's Astrolabe (mh1) 220 [Draw]
+1x Artificer's Assistant (dom) 44 [Draw]
+1x Back to Basics (usg) 62 [Stax]
+1x Bident of Thassa (a25) 42 [Draw]
+1x Buried Ruin (c18) 239 [Land]
+1x Commander's Plate (cmr) 305 [Artifact]
+1x Crawlspace (dmr) 217 [Artifact]
+1x Cyclonic Rift (mm3) 35 [Removal]
+1x Darksteel Citadel (c18) 241 [Land]
+1x Displacer Kitten (clb) 63 [Creature]
+1x Efficient Construction (aer) 33 [Tokens]
+1x Etherium Sculptor (c18) 90 [Creature]
+1x Everflowing Chalice (mkc) 227 [Artifact]
+1x Extraplanar Lens (mrd) 169 [Ramp]
+1x Fabricate (plst) M10-52 [Sorcery]
+1x Field of Ruin (xln) 254 [Land]
+1x Genesis Chamber (bbd) 235 [Tokens]
+1x Grafdigger's Cage (m20) 227 [Stax]
+1x Herbal Poultice (lrw) 257 [Protection]
+1x Howling Mine (c16) 257 [Draw]
+1x Imprisoned in the Moon (emn) 65 [Removal]
+1x Jeweled Lotus (cmm) 396 [Artifact]
+1x Jhoira's Familiar (dom) 220 [Creature]
+1x Lightning Greaves (otc) 260 [Artifact]
+1x Liquimetal Torque (brc) 145 [Artifact]
+1x Machinate (dst) 24 [Draw]
+1x Master Transmuter (brc) 87 [Creature]
+1x Mirrodin Besieged (mh1) 57 [Tokens]
+1x Mishra's Bauble (plst) IMA-221 [Artifact]
+1x Mycosynth Lattice (bbd) 241 [Protection]
+1x Mycosynth Wellspring (cm2) 201 [Ramp]
+1x Ornithopter (aer) 167 [Creature]
+1x Paradoxical Outcome (kld) 60 [Draw]
+1x Phyrexian Walker (vis) 152 [Creature]
+1x Rapid Hybridization (gk2) 109 [Removal]
+1x Reliquary Tower (c19) 268 [Land]
+1x Reshape (plst) 2XM-64 [Sorcery]
+1x Rhystic Study (pcy) 45 [Draw]
+1x Riddlesmith (ddu) 39 [Draw]
+1x Rings of Brighthearth (cmr) 335 [Artifact]
+1x Saheeli's Artistry (moc) 234 [Sorcery]
+1x Sai, Master Thopterist (pm19) 69p [Tokens]
+1x Sculpting Steel (moc) 374 [Artifact]
+1x Seat of the Synod (c18) 278 [Land]
+1x Shimmer Myr (c16) 269 [Creature]
+1x Skullclamp (c17) 222 [Draw]
+31x Snow-Covered Island (mh1) 251 [Land]
+1x Sol Ring (c18) 222 [Ramp]
+1x Spellbook (m10) 220 [Draw]
+1x Spidersilk Net (dtk) 244 [Protection]
+1x Static Orb (7ed) 319 [Artifact]
+1x Storage Matrix (9ed) 310 [Stax]
+1x Swiftfoot Boots (c18) 225 [Protection]
+1x The Antiquities War (pdom) 42p [Draw]
+1x The Reality Chip (neo) 74 [Creature]
+1x Thopter Spy Network (c18) 107 [Draw]
+1x Thoughtcast (mm2) 64 [Draw]
+1x Tomb of the Spirit Dragon (ktk) 245 [Land]
+1x Tormod's Crypt (tsb) 115 [Removal]
+1x Unwinding Clock (c18) 228 [Untap]
+1x Urza's Bauble (5ed) 406 [Draw]
+1x Urza's Saga (mh2) 259 [Land]
+1x Urza, Lord High Artificer (mh1) 75 [Commander{top}]
+1x Vedalken Orrery (cns) 206 [Protection]
+1x Venser's Journal (c16) 279 [Lifegain]
+1x Voltaic Key (m11) 219 [Untap]
+1x Welding Jar (mrd) 274 [Protection]
+1x Winter Orb (ema) 234 [Stax]
+
+===
+
+1x Arcane Signet
+1x Arcum Dagsson
+1x Arcum's Astrolabe
+1x Artificer's Assistant
+1x Back to Basics
+1x Bident of Thassa
+1x Buried Ruin
+1x Commander's Plate
+1x Crawlspace
+1x Cyclonic Rift
+1x Darksteel Citadel
+1x Displacer Kitten
+1x Efficient Construction
+1x Etherium Sculptor
+1x Everflowing Chalice
+1x Extraplanar Lens
+1x Fabricate
+1x Field of Ruin
+1x Genesis Chamber
+1x Grafdigger's Cage
+1x Herbal Poultice
+1x Howling Mine
+1x Imprisoned in the Moon
+1x Jeweled Lotus
+1x Jhoira's Familiar
+1x Lightning Greaves
+1x Liquimetal Torque
+1x Machinate
+1x Master Transmuter
+1x Mirrodin Besieged
+1x Mishra's Bauble
+1x Mycosynth Lattice
+1x Mycosynth Wellspring
+1x Ornithopter
+1x Paradoxical Outcome
+1x Phyrexian Walker
+1x Rapid Hybridization
+1x Reliquary Tower
+1x Reshape
+1x Rhystic Study
+1x Riddlesmith
+1x Rings of Brighthearth
+1x Saheeli's Artistry
+1x Sai, Master Thopterist
+1x Sculpting Steel
+1x Seat of the Synod
+1x Shimmer Myr
+1x Skullclamp
+1x Sol Ring
+1x Spellbook
+1x Spidersilk Net
+1x Static Orb
+1x Storage Matrix
+1x Swiftfoot Boots
+1x The Antiquities War
+1x The Reality Chip
+1x Thopter Spy Network
+1x Thoughtcast
+1x Tomb of the Spirit Dragon
+1x Tormod's Crypt
+1x Unwinding Clock
+1x Urza's Bauble
+1x Urza's Saga
+1x Urza, Lord High Artificer
+1x Vedalken Orrery
+1x Venser's Journal
+1x Voltaic Key
+1x Welding Jar
+1x Winter Orb
+31x Snow-Covered Island
+
+===
+
+1 Arcane Signet
+1 Arcum Dagsson
+1 Arcum's Astrolabe
+1 Artificer's Assistant
+1 Back to Basics
+1 Bident of Thassa
+1 Buried Ruin
+1 Commander's Plate
+1 Crawlspace
+1 Cyclonic Rift
+1 Darksteel Citadel
+1 Displacer Kitten
+1 Efficient Construction
+1 Etherium Sculptor
+1 Everflowing Chalice
+1 Extraplanar Lens
+1 Fabricate
+1 Field of Ruin
+1 Genesis Chamber
+1 Grafdigger's Cage
+1 Herbal Poultice
+1 Howling Mine
+1 Imprisoned in the Moon
+1 Jeweled Lotus
+1 Jhoira's Familiar
+1 Lightning Greaves
+1 Liquimetal Torque
+1 Machinate
+1 Master Transmuter
+1 Mirrodin Besieged
+1 Mishra's Bauble
+1 Mycosynth Lattice
+1 Mycosynth Wellspring
+1 Ornithopter
+1 Paradoxical Outcome
+1 Phyrexian Walker
+1 Rapid Hybridization
+1 Reliquary Tower
+1 Reshape
+1 Rhystic Study
+1 Riddlesmith
+1 Rings of Brighthearth
+1 Saheeli's Artistry
+1 Sai, Master Thopterist
+1 Sculpting Steel
+1 Seat of the Synod
+1 Shimmer Myr
+1 Skullclamp
+1 Sol Ring
+1 Spellbook
+1 Spidersilk Net
+1 Static Orb
+1 Storage Matrix
+1 Swiftfoot Boots
+1 The Antiquities War
+1 The Reality Chip
+1 Thopter Spy Network
+1 Thoughtcast
+1 Tomb of the Spirit Dragon
+1 Tormod's Crypt
+1 Unwinding Clock
+1 Urza, Lord High Artificer
+1 Urza's Bauble
+1 Urza's Saga
+1 Vedalken Orrery
+1 Venser's Journal
+1 Voltaic Key
+1 Welding Jar
+1 Winter Orb
+31 Snow-Covered Island
+
+===
+
+1 Optimus Prime, Hero // Optimus Prime, Autobot Leader (BOT) 13
+1 Abzan Battle Priest (MOC) 164
+1 Abzan Falconer (MOC) 165
+1 Ainok Bond-Kin (CMM) 7
+1 Akki Battle Squad (NEC) 18
+1 Anafenza, Kin-Tree Spirit (CMM) 11
+1 Anzrag's Rampage (MKM) 303
+1 Arcane Signet (M3C) 283
+1 Arcbound Shikari (MH2) 184
+1 Arcbound Tracker (MH2) 112
+1 Arcee, Sharpshooter // Arcee, Acrobatic Coupe (BOT) 7
+1 Austere Command (PIP) 156
+1 Axgard Artisan (MOM) 332
+1 Azorius Chancery (BRC) 175
+1 Azorius Signet (VOC) 161
+1 Bident of Thassa (M3C) 177
+1 Boros Garrison (MKC) 251
+1 Boros Signet (C20) 239
+1 Buried Ruin (CM2) 241
+1 Cayth, Famed Mechanist (M3C) 6
+1 Citadel Siege (MIC) 81
+1 Collective Effort (ONC) 61
+1 Command Tower (M3C) 331
+1 Commander's Sphere (NCC) 363
+1 Core Prowler (MBS) 103
+1 Denry Klin, Editor in Chief (NCC) 71
+1 Dusk Legion Duelist (MOM) 11
+1 Enthusiastic Mechanaut (NEO) 218
+1 Etherium Sculptor (DDU) 37
+1 Evolving Wilds (M3C) 340
+1 Exotic Orchard (OTC) 293
+1 Experimental Augury (ONE) 49
+1 Expressive Iteration (OTC) 224
+1 Fact or Fiction (DMR) 283
+1 Felidar Retreat (SCD) 22
+1 Fellwar Stone (OTC) 257
+1 Foundry Inspector (CMM) 385
+1 Generous Gift (CMR) 375
+1 Gold-Forged Thopteryx (MAT) 31
+1 Grateful Apparition (CMM) 824
+1 Ichorclaw Myr (SOM) 166
+1 Ingenious Prodigy (WOE) 56
+1 Iron Apprentice (NEO) 248
+6 Island (UND) 89
+1 Izzet Signet (OTC) 259
+1 Jetfire, Ingenious Scientist // Jetfire, Air Guardian (BOT) 3 *F*
+1 Lux Artillery (ONC) 41
+1 Metropolis Angel (SNC) 203
+1 Mikaeus, the Lunarch (MOC) 197
+1 Mind Stone (WOC) 148
+4 Mountain (ELD) 262
+1 Mystic Monastery (M3C) 360
+1 Path to Exile (LCC) 134
+1 Plague Myr (MBS) 125
+12 Plains (UND) 87
+1 Prairie Stream (M3C) 365
+1 Prowl, Stoic Strategist // Prowl, Pursuit Vehicle (BOT) 1
+1 Reconnaissance Mission (VOC) 111
+1 Requisition Raid (OTJ) 26
+1 Solemn Simulacrum (M3C) 306
+1 Spire of Industry (AER) 184
+1 Swords to Plowshares (M3C) 173
+1 Take Up the Shield (OTJ) 34
+1 Talisman of Conviction (WHO) 247
+1 Talisman of Creativity (M3C) 308
+1 Talisman of Progress (M3C) 313
+1 Temple of Enlightenment (M3C) 386
+1 Temple of Epiphany (OTC) 329
+1 Temple of Triumph (M3C) 392
+1 Terramorphic Expanse (M3C) 394
+1 Tezzeret's Gambit (M3C) 194
+1 Thopter Spy Network (J22) 361
+1 Threefold Thunderhulk (LCI) 265
+1 Thrummingbird (ONE) 288
+1 Thundering Raiju (NEO) 166
+1 Together Forever (MOC) 212
+1 Towashi Guide-Bot (NEO) 262
+1 Unbounded Potential (CMM) 67
+1 Unbreakable Formation (MOC) 213
+1 Wake the Past (PIP) 221
+1 Wayfarer's Bauble (CLB) 344
+
+===
+About
+Name Do You Join The Unity? (The Master Primer)
+
+Commander
+1x The Master, Transcendent (PIP) 6
+
+Deck
+1x Aftermath Analyst (MKM) 148
+1x Agadeem, the Undercrypt (ZNR) 90
+1x Alpha Deathclaw (PIP) 91
+1x Angel of Suffering (SNC) 67
+1x Archaeomancer (MYS1) 289
+1x Bane of Progress (CC1) 3
+1x Birds of Paradise (RVR) 133
+1x Black Market Connections (LCC) 181
+1x Bolas's Citadel (SLD) 1187
+1x Boseiju, Who Endures (NEO) 266
+1x Breeding Pool (CLU) 275
+1x Canoptek Tomb Sentinel (40K) 152
+1x City of Brass (2X2) 321
+1x Command Tower (M3C) 331
+1x Command the Dreadhorde (WAR) 82
+1x Cut Your Losses (SNC) 38
+1x Demon of Dark Schemes (KLR) 73
+1x Dig Through Time (WOC) 88
+1x Diligent Farmhand (ODY) 237
+1x Dreamborn Muse (CM2) 41
+1x Eternal Witness (CMM) 286
+1x Exotic Orchard (M3C) 341
+1x Fabled Passage (M21) 246
+1x Fierce Guardianship (CMM) 94
+1x Flooded Grove (LTC) 309
+4x Forest (MH3) 308
+1x Foundation Breaker (MH2) 160
+1x Incarnation Technique (C21) 41
+1x Intruder Alarm (WOT) 21
+4x Island (MH3) 305
+1x Jin-Gitaxias, Core Augur (MUL) 11
+1x Kagha, Shadow Archdruid (CLB) 279
+1x Kiora's Follower (LCC) 273
+1x Kodama of the East Tree (CMR) 239
+1x Life from the Loam (RVR) 148
+1x Lightning Greaves (PIP) 233
+1x Llanowar Wastes (M3C) 354
+1x Lorcan, Warlock Collector (AFC) 27
+1x Malakir Mire (ZNR) 111
+1x Mana Confluence (CMR) 721
+1x Masked Vandal (KHM) 184
+1x Massacre Wurm (MKC) 130
+1x Mesmeric Orb (BRR) 31
+1x Millikin (DMR) 231
+1x Misty Rainforest (MH2) 250
+1x Muldrotha, the Gravetide (2X2) 258
+1x Mulldrifter (MKC) 111
+1x Neverwinter Dryad (AFR) 195
+1x Notion Thief (LTC) 270
+1x Noxious Revival (ONC) 110
+1x Nuclear Fallout (PIP) 47
+1x Ornithopter of Paradise (CMM) 966
+1x Otawara, Soaring City (NEO) 271
+1x Overgrown Tomb (CLU) 278
+1x Palantir of Orthanc (LTR) 247
+1x Polluted Delta (ZNE) 2
+1x Prismatic Vista (H1R) 40
+1x Raul, Trouble Shooter (PIP) 115
+1x Ravenous Chupacabra (MKC) 136
+1x Rhystic Study (WOT) 25
+1x Rise of the Dark Realms (MKC) 138
+1x Screeching Scorchbeast (PIP) 49
+1x Scroll Rack (CMR) 337
+1x Seedborn Muse (MKC) 186
+1x Sheoldred, Whispering One (MUL) 16
+1x Shriekmaw (MKC) 139
+1x Skull Prophet (IKO) 206
+1x Sol Ring (PIP) 239
+1x Sting, the Glinting Dagger (LTR) 250
+1x Strip Mine (ZNE) 28
+1x Sunken Ruins (2XM) 326
+6x Swamp (MH3) 306
+1x Sylvan Library (DMR) 179
+1x Syr Konrad, the Grim (MKC) 141
+1x Takenuma, Abandoned Mire (NEO) 278
+1x Tangled Vale (ZNR) 211
+1x Thassa's Oracle (THB) 73
+1x Timeless Witness (MH2) 179
+1x Toxrill, the Corrosive (DBL) 399
+1x Traumatize (M14) 77
+1x Treasure Cruise (NCC) 237
+1x Twilight Mire (NCC) 443
+1x Vampiric Tutor (DMR) 108
+1x Verdant Catacombs (MH2) 260
+1x Void Winnower (SLD) 1075
+1x Vorinclex, Voice of Hunger (MUL) 29
+1x Watery Grave (CLU) 283
+1x Worldly Tutor (DMR) 185
