@@ -38,7 +38,7 @@ export class AppComponent implements OnInit {
     if(!this.data()) return [];
 
     const cards = this.deckString();
-    const validCards = cards.split('\n').map(c => this.parseCardLine(c)).flat().filter(Boolean) as DeckCard[];
+    const validCards = (cards ?? '').split('\n').map(c => this.parseCardLine(c)).flat().filter(Boolean) as DeckCard[];
 
     return validCards;
   })
@@ -124,7 +124,7 @@ export class AppComponent implements OnInit {
       name: c.name,
       set: c.set_name,
       rarity: c.rarity,
-      type: c.type_line.split('—')[0].trim()
+      type: (c.type_line ?? '').split('—')[0].trim()
     }));
 
     this.data.set(cardData);
