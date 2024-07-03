@@ -287,4 +287,11 @@ export class AppComponent implements OnInit {
       .filter((c) => !c()).length;
     this.incompleteCards.set(incomplete);
   }
+
+  getOrderedCardsFromSet(set: string): DeckCard[] {
+    return sortBy(
+      this.cardsAndSets()[set],
+      (card) => -this.checkList[card.name].length
+    );
+  }
 }
