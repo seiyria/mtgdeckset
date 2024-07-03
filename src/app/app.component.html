@@ -3,33 +3,34 @@
 
   <div class="collapse navbar-collapse justify-content-between">
     @if(!loadingPage()) {
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item">
-          <button class="btn btn-outline-success my-2 my-sm-0" (click)="fetchData()" [disabled]="loadingData()">Fetch Card Data</button>
-        </li>
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <button class="btn btn-outline-success my-2 my-sm-0" (click)="fetchData()" [disabled]="loadingData()">Fetch Card
+          Data</button>
+      </li>
 
-        @if(updatedAt(); as updatedAt) {
-          <li class="nav-item">
-            <a class="nav-link disabled" href="#">Updated at: {{ updatedAt | date }} ({{ totalCards() | number }} cards)</a>
-          </li>
-        }
-
-        @else {
-          <li class="nav-item">
-            <a class="nav-link disabled" href="#">Data not fetched.</a>
-          </li>
-        }
-      </ul>
-
-      @if(deckString()) {
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item">
-          <button class="btn btn-outline-info my-2 my-sm-0" (click)="toggleDeckBox()">
-            {{ deckToggle() ? 'Hide' : 'Show' }} Deck
-          </button>
-        </li>
-      </ul>
+      @if(updatedAt(); as updatedAt) {
+      <li class="nav-item">
+        <a class="nav-link disabled" href="#">Updated at: {{ updatedAt | date }} ({{ totalCards() | number }} cards)</a>
+      </li>
       }
+
+      @else {
+      <li class="nav-item">
+        <a class="nav-link disabled" href="#">Data not fetched.</a>
+      </li>
+      }
+    </ul>
+
+    @if(deckString()) {
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+        <button class="btn btn-outline-info my-2 my-sm-0" (click)="toggleDeckBox()">
+          {{ deckToggle() ? 'Hide' : 'Show' }} Deck
+        </button>
+      </li>
+    </ul>
+    }
     }
   </div>
 </nav>
@@ -38,10 +39,10 @@
 <div class="container py-4">
   <div class="row">
     @if(shouldShowDeck()) {
-      <div class="col-6">
-        <h2>Deck List</h2>
-        <textarea class="form-control" rows="15" [(ngModel)]="deckString" (ngModelChange)="saveDeck($event)"></textarea>
-      </div>
+    <div class="col-6">
+      <h2>Deck List</h2>
+      <textarea class="form-control" rows="15" [(ngModel)]="deckString" (ngModelChange)="saveDeck($event)"></textarea>
+    </div>
     }
 
     <div class="col">
@@ -50,12 +51,10 @@
 
         <div class="btn-group ms-3">
           @for(sortType of ['Set', 'Color', 'Rarity', 'Type']; track $index) {
-            <button type="button" class="btn btn-sm"
-                    (click)="setSort(sortType)"
-                    [class.btn-secondary]="sort() !== sortType"
-                    [class.btn-info]="sort() === sortType">
-                  {{ sortType }}
-            </button>
+          <button type="button" class="btn btn-sm" (click)="setSort(sortType)"
+            [class.btn-secondary]="sort() !== sortType" [class.btn-info]="sort() === sortType">
+            {{ sortType }}
+          </button>
           }
         </div>
       </h2>
@@ -64,39 +63,54 @@
         <div class="col">
           <em>{{ totalUniqueCards() }} cards in deck; {{ incompleteCards() }} cards to go</em>
 
-          <button class="btn ms-3 btn-sm" [class.btn-outline-info]="!hideComplete()" [class.btn-info]="hideComplete()" (click)="toggleHideComplete()">
+          <button class="btn ms-3 btn-sm" [class.btn-outline-info]="!hideComplete()" [class.btn-info]="hideComplete()"
+            (click)="toggleHideComplete()">
             {{ hideComplete() ? '☑' : '☐' }} Hide Complete
           </button>
         </div>
       </div>
 
+      @if(unfoundCards().length > 0) {
+      <div class="row my-3">
+        <div class="col">
+          <em>{{ unfoundCards().length }} unfound cards: </em>
+
+          @for(card of unfoundCards(); track $index) {
+          <span class="unfound badge bg-danger">{{ card.name }}</span>
+          }
+        </div>
+      </div>
+      }
+
       <div class="row">
         @for(set of orderedSets(); track $index) {
-          @let isComplete = isSetComplete(set);
+        @let isComplete = isSetComplete(set);
 
-          <div class="col-4 my-2" [class.hidden]="isComplete && hideComplete()">
-            <div class="card" [class.text-white]="isComplete" [class.bg-success]="isComplete">
-              <div class="card-body">
-                <h5 class="card-title">
-                  {{ set }}
-                </h5>
+        <div class="col-4 my-2" [class.hidden]="isComplete && hideComplete()">
+          <div class="card" [class.text-white]="isComplete || set === 'Unfound'" [class.bg-success]="isComplete"
+            [class.bg-danger]="set === 'Unfound'">
+            <div class="card-body">
+              <h5 class="card-title">
+                {{ set }}
+              </h5>
 
-                <div class="card-text">
-                  <ul>
-                    @for(card of cardsAndSets()[set]; track card.name) {
-                      <li>
-                        @for(input of checkList[card.name]; track $index) {
-                          <input class="form-check-input" type="checkbox" [checked]="checkList[card.name][$index]()" (click)="toggleCollectionCard(card.name, $index)">
-                        }
-
-                        {{ card.name }}
-                      </li>
+              <div class="card-text">
+                <ul>
+                  @for(card of cardsAndSets()[set]; track card.name) {
+                  <li>
+                    @for(input of checkList[card.name]; track $index) {
+                    <input class="form-check-input" type="checkbox" [checked]="checkList[card.name][$index]()"
+                      (click)="toggleCollectionCard(card.name, $index)">
                     }
-                  </ul>
-                </div>
+
+                    {{ card.name }}
+                  </li>
+                  }
+                </ul>
               </div>
             </div>
           </div>
+        </div>
         }
       </div>
     </div>
@@ -105,8 +119,8 @@
 }
 
 @else {
-  <div class="container py-4 loading-container">
-    <div class="spinner-border">
-    </div>
+<div class="container py-4 loading-container">
+  <div class="spinner-border">
   </div>
+</div>
 }

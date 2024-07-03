@@ -1,6 +1,14 @@
 import { DatePipe, DecimalPipe, JsonPipe } from '@angular/common';
+import {
+  Component,
+  computed,
+  effect,
+  model,
+  OnInit,
+  signal,
+  WritableSignal,
+} from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Component, computed, effect, model, OnInit, signal, WritableSignal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
 import { groupBy, sortBy, uniqBy } from 'lodash';
@@ -13,7 +21,7 @@ type Sort = 'Set' | 'Color' | 'Rarity' | 'Type';
   standalone: true,
   imports: [RouterOutlet, DatePipe, FormsModule, JsonPipe, DecimalPipe],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  styleUrl: './app.component.scss',
 })
 export class AppComponent implements OnInit {
   data = signal<Card[]>([]);
@@ -35,54 +43,83 @@ export class AppComponent implements OnInit {
   checkList: Record<string, WritableSignal<boolean>[]> = {};
 
   allCards = computed(() => {
-    if(!this.data()) return [];
+    if (!this.data()) return [];
 
     const cards = this.deckString();
-    const validCards = (cards ?? '').split('\n').map(c => this.parseCardLine(c)).flat().filter(Boolean) as DeckCard[];
+    const validCards = (cards ?? '')
+      .split('\n')
+      .map((c) => this.parseCardLine(c))
+      .flat()
+      .filter(Boolean) as DeckCard[];
 
     return validCards;
-  })
+  });
+
+  unfoundCards = computed(() => {
+    return this.allCards().filter((c) => c.set === 'Unfound');
+  });
 
   cardsAndSets = computed(() => {
     const sort = this.sort();
 
     const cards = this.allCards();
 
-    switch(sort) {
-      case 'Type':    return groupBy(uniqBy(cards, c => c.name), c => c.type);
-      case 'Color':   return groupBy(uniqBy(cards, c => c.name), c => c.colors.join('') || 'Colorless');
-      case 'Rarity':  return groupBy(uniqBy(cards, c => c.name), c => c.rarity);
-      case 'Set':     return groupBy(cards, (c: DeckCard) => c.set);
+    switch (sort) {
+      case 'Type':
+        return groupBy(
+          uniqBy(cards, (c) => c.name),
+          (c) => c.type
+        );
+      case 'Color':
+        return groupBy(
+          uniqBy(cards, (c) => c.name),
+          (c) => c.colors.join('') || 'Colorless'
+        );
+      case 'Rarity':
+        return groupBy(
+          uniqBy(cards, (c) => c.name),
+          (c) => c.rarity
+        );
+      case 'Set':
+        return groupBy(cards, (c: DeckCard) => c.set);
     }
-
   });
 
   orderedSets = computed(() => {
     const cardsAndSets = this.cardsAndSets();
-    if(!cardsAndSets) return;
+    if (!cardsAndSets) return;
 
     return sortBy(Object.keys(cardsAndSets));
   });
 
   shouldShowDeck = computed(() => {
-    if(!this.deckString()) return true;
+    if (!this.deckString()) return true;
 
     return this.deckToggle();
   });
 
   constructor() {
-    effect(() =>  {
-      const cards = this.allCards();
+    effect(
+      () => {
+        this.checkList = {};
 
-      cards.forEach(c => {
-        this.checkList[c.name] = Array(c.amount).fill(undefined).map(() => signal(false));
-      });
+        const cards = this.allCards();
 
-      const totals = Object.keys(this.checkList).map(c => this.checkList[c]).flat();
-      this.totalUniqueCards.set(totals.length);
-      this.incompleteCards.set(totals.length);
+        cards.forEach((c) => {
+          this.checkList[c.name] = Array(c.amount)
+            .fill(undefined)
+            .map(() => signal(false));
+        });
 
-    }, { allowSignalWrites: true });
+        const totals = Object.keys(this.checkList)
+          .map((c) => this.checkList[c])
+          .flat();
+
+        this.totalUniqueCards.set(totals.length);
+        this.incompleteCards.set(totals.length);
+      },
+      { allowSignalWrites: true }
+    );
   }
 
   async ngOnInit() {
@@ -94,9 +131,9 @@ export class AppComponent implements OnInit {
     this.updatedAt.set(localStorage.getItem('updated-at') ?? '');
     this.totalCards.set(+(localStorage.getItem('total-cards') ?? '0'));
     this.deckString.set(localStorage.getItem('previous-deck') ?? '');
-    this.deckToggle.set(!!(+(localStorage.getItem('show-deck') ?? '1')));
-    this.hideComplete.set(!!(+(localStorage.getItem('hide-complete') ?? '1')));
-    this.sort.set(localStorage.getItem('sort') as Sort ?? 'Set');
+    this.deckToggle.set(!!+(localStorage.getItem('show-deck') ?? '1'));
+    this.hideComplete.set(!!+(localStorage.getItem('hide-complete') ?? '1'));
+    this.sort.set((localStorage.getItem('sort') as Sort) ?? 'Set');
 
     this.loadingPage.set(false);
   }
@@ -107,7 +144,7 @@ export class AppComponent implements OnInit {
     const bulkData = await bulkRes.json();
 
     const cardRef = bulkData.data.find((d: any) => d.type === 'default_cards');
-    if(!cardRef) return;
+    if (!cardRef) return;
 
     const cardRes = await fetch(cardRef.download_uri);
     const cardData = await cardRes.json();
@@ -124,10 +161,10 @@ export class AppComponent implements OnInit {
       name: c.name,
       set: c.set_name,
       rarity: c.rarity,
-      type: (c.type_line ?? '').split('—')[0].trim()
+      type: (c.type_line ?? '').split('—')[0].trim(),
     }));
 
-    this.data.set(cardData);
+    this.data.set(cardsToStore);
 
     CardDB.cards.bulkPut(cardsToStore);
 
@@ -137,47 +174,63 @@ export class AppComponent implements OnInit {
   parseCardLine(line: string): DeckCard[] | undefined {
     line = line.trim();
 
-    if(!line) return undefined;
+    if (!line) return undefined;
     const [amount, ...cardTextPotential] = line.split(' ');
     const cardAmount = amount.replace('x', '');
 
-    if(!cardAmount || isNaN(+cardAmount)) return undefined;
-    if(!cardTextPotential) return undefined;
+    if (!cardAmount || isNaN(+cardAmount)) return undefined;
+    if (!cardTextPotential) return undefined;
 
     let cardName = cardTextPotential.join(' ');
 
     const parenIndex = cardName.indexOf('(');
     const brackIndex = cardName.indexOf('[');
 
-    if(parenIndex !== -1) {
+    if (parenIndex !== -1) {
       cardName = cardName.slice(0, parenIndex);
     }
 
-    if(brackIndex !== -1) {
+    if (brackIndex !== -1) {
       cardName = cardName.slice(0, brackIndex);
     }
 
     cardName = cardName.trim();
 
-    if(this.isBasicLand(cardName)) {
-      return [{
-        amount: +cardAmount,
-        colors: [],
-        id: cardName,
-        name: cardName,
-        rarity: 'land',
-        set: 'Lands',
-        type: 'Land'
-      }]
+    if (this.isBasicLand(cardName)) {
+      return [
+        {
+          amount: +cardAmount,
+          colors: [],
+          id: cardName,
+          name: cardName,
+          rarity: 'basicland',
+          set: 'Basic Lands',
+          type: 'Basic Land',
+        },
+      ];
     }
 
-    const cardRefs = this.data().filter(c => c.name === cardName);
-    if(cardRefs.length === 0) return undefined;
+    const cardRefs = this.data().filter((c) => c.name === cardName);
+    if (cardRefs.length === 0)
+      return [
+        {
+          amount: +cardAmount,
+          colors: [],
+          id: cardName,
+          name: cardName,
+          rarity: 'Unfound',
+          set: 'Unfound',
+          type: 'Unfound',
+        },
+      ];
 
-    return uniqBy(cardRefs.map(c => ({
-      ...c,
-      amount: +cardAmount
-    })), c => c.set);
+    return uniqBy(
+      cardRefs.map((c) => ({
+        ...c,
+        amount: +cardAmount,
+      })),
+      (c) => c.set
+    );
   }
 
   findSetForCard(cardName: string) {
@@ -196,7 +249,7 @@ export class AppComponent implements OnInit {
   }
 
   setSort(sort: string) {
-    this.sort.set(sort as Sort  );
+    this.sort.set(sort as Sort);
     localStorage.setItem('sort', sort);
   }
 
@@ -205,11 +258,21 @@ export class AppComponent implements OnInit {
   }
 
   isBasicLand(cardName: string) {
-    return ['Plains', 'Mountain', 'Island', 'Swamp', 'Forest', 'Wastes'].includes(cardName);
+    return [
+      'Plains',
+      'Mountain',
+      'Island',
+      'Swamp',
+      'Forest',
+      'Wastes',
+    ].includes(cardName);
   }
 
   isSetComplete(set: string) {
-    return this.cardsAndSets()[set].map(c => this.checkList[c.name]).flat().every(c => c());
+    return this.cardsAndSets()
+      [set].map((c) => this.checkList[c.name])
+      .flat()
+      .every((c) => c());
   }
 
   toggleCollectionCard(cardName: string, index: number) {
@@ -218,7 +281,10 @@ export class AppComponent implements OnInit {
   }
 
   recalculateIncomplete() {
-    const incomplete = Object.keys(this.checkList).map(k => this.checkList[k]).flat().filter(c => !c()).length;
+    const incomplete = Object.keys(this.checkList)
+      .map((k) => this.checkList[k])
+      .flat()
+      .filter((c) => !c()).length;
     this.incompleteCards.set(incomplete);
   }
 }
