@@ -62,6 +62,11 @@
             (click)="toggleHideComplete()">
             {{ hideComplete() ? '☑' : '☐' }} Hide Complete
           </button>
+
+          <button class="btn ms-3 btn-sm" [class.btn-outline-info]="!hideClosed()" [class.btn-info]="hideClosed()"
+            (click)="toggleHideClosed()">
+            {{ hideClosed() ? '☑' : '☐' }} Hide Closed
+          </button>
         </div>
       </div>
 
@@ -81,12 +86,16 @@
         @for(set of orderedSets(); track $index) {
         @let isComplete = isSetComplete(set);
 
-        <div class="col-4 my-2" [class.hidden]="isComplete && hideComplete()">
+        <div class="col-4 my-2" [class.hidden]="(isComplete && hideComplete()) || (closedBoxes[set] && hideClosed())">
           <div class="card" [class.text-white]="isComplete || set === 'Unfound'" [class.bg-success]="isComplete"
-            [class.bg-danger]="set === 'Unfound'">
+            [class.bg-warning]="closedBoxes[set]" [class.bg-danger]="set === 'Unfound'">
             <div class="card-body">
               <h5 class="card-title">
                 {{ set }}
+                <button class="btn btn-sm float-end" [class.btn-outline-info]="closedBoxes[set]"
+                  [class.btn-outline-warning]="!closedBoxes[set]" (click)="toggleBoxClosed(set)">
+                  &times;
+                </button>
               </h5>
 
               <div class="card-text">

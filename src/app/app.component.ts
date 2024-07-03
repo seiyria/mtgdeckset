@@ -32,6 +32,7 @@ export class AppComponent implements OnInit {
 
   deckToggle = signal<boolean>(true);
   hideComplete = signal<boolean>(true);
+  hideClosed = signal<boolean>(true);
 
   totalUniqueCards = signal<number>(0);
   incompleteCards = signal<number>(0);
@@ -41,6 +42,7 @@ export class AppComponent implements OnInit {
   sort = model<Sort>('Set');
 
   checkList: Record<string, WritableSignal<boolean>[]> = {};
+  closedBoxes: Record<string, boolean> = {};
 
   allCards = computed(() => {
     if (!this.data()) return [];
@@ -133,6 +135,7 @@ export class AppComponent implements OnInit {
     this.deckString.set(localStorage.getItem('previous-deck') ?? '');
     this.deckToggle.set(!!+(localStorage.getItem('show-deck') ?? '1'));
     this.hideComplete.set(!!+(localStorage.getItem('hide-complete') ?? '1'));
+    this.hideClosed.set(!!+(localStorage.getItem('hide-closed') ?? '1'));
     this.sort.set((localStorage.getItem('sort') as Sort) ?? 'Set');
 
     this.loadingPage.set(false);
@@ -248,6 +251,11 @@ export class AppComponent implements OnInit {
     localStorage.setItem('hide-complete', (+this.hideComplete()).toString());
   }
 
+  toggleHideClosed() {
+    this.hideClosed.set(!this.hideClosed());
+    localStorage.setItem('hide-closed', (+this.hideClosed()).toString());
+  }
+
   setSort(sort: string) {
     this.sort.set(sort as Sort);
     localStorage.setItem('sort', sort);
@@ -278,6 +286,10 @@ export class AppComponent implements OnInit {
   toggleCollectionCard(cardName: string, index: number) {
     this.checkList[cardName][index].set(!this.checkList[cardName][index]());
     this.recalculateIncomplete();
+  }
+
+  toggleBoxClosed(boxName: string) {
+    this.closedBoxes[boxName] = !this.closedBoxes[boxName];
   }
 
   recalculateIncomplete() {
