@@ -11,10 +11,12 @@ import {
 import { FormsModule } from '@angular/forms';
 import { RouterOutlet } from '@angular/router';
 
-import { groupBy, sortBy, uniqBy } from 'lodash';
+import { groupBy, sortBy, sum, sumBy, uniqBy } from 'lodash';
 import { Card, CardDB, DeckCard } from '../db';
 
 type Sort = 'Set' | 'Color' | 'Rarity' | 'Type';
+type BoxSort = 'AZ' | 'Qty';
+type BoxOrder = 'Asc' | 'Desc';
 
 @Component({
   selector: 'app-root',
@@ -33,6 +35,7 @@ export class AppComponent implements OnInit {
   deckToggle = signal<boolean>(true);
   hideComplete = signal<boolean>(true);
   hideClosed = signal<boolean>(true);
+  considerUnfound = signal<boolean>(true);
 
   totalUniqueCards = signal<number>(0);
   incompleteCards = signal<number>(0);
@@ -40,6 +43,8 @@ export class AppComponent implements OnInit {
   deckString = model<string>('');
 
   sort = model<Sort>('Set');
+  boxSort = model<BoxSort>('AZ');
+  boxOrder = model<BoxOrder>('Asc');
 
   checkList: Record<string, WritableSignal<boolean>[]> = {};
   closedBoxes: Record<string, boolean> = {};
@@ -91,7 +96,45 @@ export class AppComponent implements OnInit {
     const cardsAndSets = this.cardsAndSets();
     if (!cardsAndSets) return;
 
-    return sortBy(Object.keys(cardsAndSets));
+    const boxSort = this.boxSort();
+    const boxOrder = this.boxOrder();
+    const considerUnfound = this.considerUnfound();
+
+    const baseKeys = Object.keys(cardsAndSets);
+
+    if (boxSort === 'AZ') {
+      if (boxOrder === 'Asc') {
+        return sortBy(baseKeys);
+      }
+
+      if (boxOrder === 'Desc') {
+        return sortBy(baseKeys).reverse();
+      }
+    }
+
+    if (boxSort === 'Qty') {
+      const qtyCallback = (cardData: DeckCard) => {
+        if (!considerUnfound || !this.checkList[cardData.name])
+          return cardData.amount;
+
+        const totalFound = sum(this.checkList[cardData.name].map((s) => +s()));
+        return totalFound - cardData.amount;
+      };
+
+      if (boxOrder === 'Asc') {
+        return sortBy(baseKeys, (key) => {
+          return sumBy(cardsAndSets[key], qtyCallback);
+        });
+      }
+
+      if (boxOrder === 'Desc') {
+        return sortBy(baseKeys, (key) => {
+          return -sumBy(cardsAndSets[key], qtyCallback);
+        });
+      }
+    }
+
+    return sortBy(baseKeys);
   });
 
   shouldShowDeck = computed(() => {
@@ -136,7 +179,12 @@ export class AppComponent implements OnInit {
     this.deckToggle.set(!!+(localStorage.getItem('show-deck') ?? '1'));
     this.hideComplete.set(!!+(localStorage.getItem('hide-complete') ?? '1'));
     this.hideClosed.set(!!+(localStorage.getItem('hide-closed') ?? '1'));
+    this.considerUnfound.set(
+      !!+(localStorage.getItem('consider-unfound') ?? '1')
+    );
     this.sort.set((localStorage.getItem('sort') as Sort) ?? 'Set');
+    this.boxSort.set((localStorage.getItem('boxsort') as BoxSort) ?? 'AZ');
+    this.boxOrder.set((localStorage.getItem('boxorder') as BoxOrder) ?? 'Asc');
 
     const closedBoxes = localStorage.getItem('closed-boxes');
     if (closedBoxes) {
@@ -261,9 +309,27 @@ export class AppComponent implements OnInit {
     localStorage.setItem('hide-closed', (+this.hideClosed()).toString());
   }
 
+  toggleConsiderUnfound() {
+    this.considerUnfound.set(!this.considerUnfound());
+    localStorage.setItem(
+      'consider-unfound',
+      (+this.considerUnfound()).toString()
+    );
+  }
+
   setSort(sort: string) {
     this.sort.set(sort as Sort);
     localStorage.setItem('sort', sort);
+  }
+
+  setBoxSort(sort: string) {
+    this.boxSort.set(sort as BoxSort);
+    localStorage.setItem('boxsort', sort);
+  }
+
+  setBoxOrder(sort: string) {
+    this.boxOrder.set(sort as BoxOrder);
+    localStorage.setItem('boxorder', sort);
   }
 
   saveDeck(deck: string) {
@@ -281,11 +347,24 @@ export class AppComponent implements OnInit {
     ].includes(cardName);
   }
 
-  isSetComplete(set: string) {
+  isSetComplete(set: string): boolean {
     return this.cardsAndSets()
       [set].map((c) => this.checkList[c.name])
       .flat()
       .every((c) => c());
+  }
+
+  setTotal(set: string): number {
+    return this.cardsAndSets()
+      [set].map((c) => this.checkList[c.name])
+      .flat().length;
+  }
+
+  setFound(set: string): number {
+    return this.cardsAndSets()
+      [set].map((c) => this.checkList[c.name])
+      .flat()
+      .filter((c) => c()).length;
   }
 
   toggleCollectionCard(cardName: string, index: number) {
