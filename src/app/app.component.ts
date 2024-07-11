@@ -391,4 +391,27 @@ export class AppComponent implements OnInit {
       (card) => -this.checkList[card.name].length
     );
   }
+
+  showUnfound() {
+    const incomplete = Object.keys(this.checkList)
+      .map((k) => ({
+        name: k,
+        amt:
+          this.checkList[k].length -
+          this.checkList[k].map((c) => c()).filter(Boolean).length,
+      }))
+      .filter((c) => c.amt > 0)
+      .flat()
+      .map((c) => `${c.amt}x ${c.name}`)
+      .join('\n');
+
+    const blob = new Blob([incomplete], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+
+    const domNode = document.createElement('a');
+    domNode.target = '_blank';
+    domNode.href = url;
+
+    domNode.click();
+  }
 }
