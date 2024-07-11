@@ -138,6 +138,11 @@ export class AppComponent implements OnInit {
     this.hideClosed.set(!!+(localStorage.getItem('hide-closed') ?? '1'));
     this.sort.set((localStorage.getItem('sort') as Sort) ?? 'Set');
 
+    const closedBoxes = localStorage.getItem('closed-boxes');
+    if (closedBoxes) {
+      this.closedBoxes = JSON.parse(closedBoxes);
+    }
+
     this.loadingPage.set(false);
   }
 
@@ -290,6 +295,7 @@ export class AppComponent implements OnInit {
 
   toggleBoxClosed(boxName: string) {
     this.closedBoxes[boxName] = !this.closedBoxes[boxName];
+    localStorage.setItem('closed-boxes', JSON.stringify(this.closedBoxes));
   }
 
   recalculateIncomplete() {
